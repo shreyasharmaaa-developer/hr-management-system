@@ -33,17 +33,18 @@
     <header class="topbar">
       <div class="page-title"><h1>Recruitment</h1><p>Job postings &amp; candidate pipeline</p></div>
       <div class="page-actions">
-        <button class="btn btn-primary" onclick="openModal('jobModal')"><i class="fas fa-plus"></i> Post Job</button>
+        <button class="btn btn-primary" onclick="openPostJobModal()"><i class="fas fa-plus"></i> Post Job</button>
       </div>
     </header>
 
     <section class="stats-grid">
-      <div class="stat-card blue"><div class="stat-icon"><i class="fas fa-briefcase"></i></div><div class="stat-info"><div class="stat-number" data-target="12">0</div><div class="stat-label">Open Positions</div></div></div>
-      <div class="stat-card orange"><div class="stat-icon"><i class="fas fa-file-alt"></i></div><div class="stat-info"><div class="stat-number" data-target="84">0</div><div class="stat-label">Applications</div></div></div>
+      <div class="stat-card blue"><div class="stat-icon"><i class="fas fa-briefcase"></i></div><div class="stat-info"><div class="stat-number" id="statOpen">0</div><div class="stat-label">Open Positions</div></div></div>
+      <div class="stat-card orange"><div class="stat-icon"><i class="fas fa-file-alt"></i></div><div class="stat-info"><div class="stat-number" id="statApps">0</div><div class="stat-label">Applications</div></div></div>
       <div class="stat-card purple"><div class="stat-icon"><i class="fas fa-user-clock"></i></div><div class="stat-info"><div class="stat-number" data-target="18">0</div><div class="stat-label">Interviews Scheduled</div></div></div>
       <div class="stat-card green"><div class="stat-icon"><i class="fas fa-handshake"></i></div><div class="stat-info"><div class="stat-number" data-target="5">0</div><div class="stat-label">Offers Extended</div></div></div>
     </section>
 
+    <!-- Job Postings Table -->
     <div class="card">
       <div class="card-header"><h2>Active Job Postings</h2></div>
       <div class="table-container">
@@ -51,32 +52,12 @@
           <thead>
             <tr><th>Job Title</th><th>Department</th><th>Location</th><th>Applications</th><th>Posted On</th><th>Status</th><th>Actions</th></tr>
           </thead>
-          <tbody>
-            <tr>
-              <td><strong>Senior React Developer</strong></td><td>Engineering</td><td>Noida (Hybrid)</td><td>24</td><td>10 Jun 2026</td>
-              <td><span class="badge-status active">Active</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button></div></td>
-            </tr>
-            <tr>
-              <td><strong>Digital Marketing Lead</strong></td><td>Marketing</td><td>Delhi (Remote)</td><td>31</td><td>15 Jun 2026</td>
-              <td><span class="badge-status active">Active</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button></div></td>
-            </tr>
-            <tr>
-              <td><strong>HR Business Partner</strong></td><td>HR</td><td>Mumbai (On-site)</td><td>17</td><td>20 Jun 2026</td>
-              <td><span class="badge-status active">Active</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button></div></td>
-            </tr>
-            <tr>
-              <td><strong>Finance Controller</strong></td><td>Finance</td><td>Delhi (On-site)</td><td>12</td><td>22 Jun 2026</td>
-              <td><span class="badge-status pending">Review</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button></div></td>
-            </tr>
-          </tbody>
+          <tbody id="jobTableBody"></tbody>
         </table>
       </div>
     </div>
 
+    <!-- Candidates Table -->
     <div class="card" style="margin-top:24px">
       <div class="card-header"><h2>Recent Candidates</h2></div>
       <div class="table-container">
@@ -84,61 +65,310 @@
           <thead>
             <tr><th>Candidate</th><th>Applied For</th><th>Experience</th><th>Applied On</th><th>Stage</th><th>Actions</th></tr>
           </thead>
-          <tbody>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#4f46e5">SM</div><div><div class="emp-name">Sanjay Mehta</div><div class="emp-id">sanjay@gmail.com</div></div></div></td>
-              <td>Senior React Developer</td><td>5 Years</td><td>25 Jun</td>
-              <td><span class="badge-status pending">Interview</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn" onclick="showToast('Offer letter sent!')"><i class="fas fa-paper-plane"></i></button></div></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#10b981">RJ</div><div><div class="emp-name">Riya Joshi</div><div class="emp-id">riya.j@gmail.com</div></div></div></td>
-              <td>Digital Marketing Lead</td><td>7 Years</td><td>24 Jun</td>
-              <td><span class="badge-status approved">Offer Sent</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button></div></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#f59e0b">KT</div><div><div class="emp-name">Karan Thakur</div><div class="emp-id">karan.t@gmail.com</div></div></div></td>
-              <td>HR Business Partner</td><td>4 Years</td><td>23 Jun</td>
-              <td><span class="badge-status" style="background:#dbeafe;color:#1d4ed8">Screening</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn danger"><i class="fas fa-times"></i></button></div></td>
-            </tr>
-          </tbody>
+          <tbody id="candidateTableBody"></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- Post Job Modal -->
+  <!-- View Job Modal -->
+  <div class="modal-overlay" id="viewJobModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Job Details</h3>
+        <button class="close-btn" onclick="closeModal('viewJobModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="viewJobContent"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('viewJobModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post / Edit Job Modal -->
   <div class="modal-overlay" id="jobModal">
     <div class="modal">
       <div class="modal-header">
-        <h3>Post New Job</h3>
+        <h3 id="jobModalTitle">Post New Job</h3>
         <button class="close-btn" onclick="closeModal('jobModal')"><i class="fas fa-times"></i></button>
       </div>
-      <div class="form-group"><label>Job Title *</label><input class="form-control" type="text" placeholder="e.g. Senior Software Engineer" required></div>
+      <div class="form-group"><label>Job Title *</label><input class="form-control" id="jTitle" type="text" placeholder="e.g. Senior Software Engineer"></div>
       <div class="form-grid">
         <div class="form-group">
           <label>Department</label>
-          <select class="form-control"><option>Engineering</option><option>Marketing</option><option>Sales</option><option>HR</option><option>Finance</option></select>
+          <select class="form-control" id="jDept">
+            <option>Engineering</option><option>Marketing</option><option>Sales</option><option>HR</option><option>Finance</option><option>Operations</option>
+          </select>
         </div>
         <div class="form-group">
           <label>Job Type</label>
-          <select class="form-control"><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select>
+          <select class="form-control" id="jType">
+            <option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option>
+          </select>
         </div>
       </div>
       <div class="form-grid">
-        <div class="form-group"><label>Location</label><input class="form-control" type="text" placeholder="City / Remote"></div>
-        <div class="form-group"><label>Salary Range (₹)</label><input class="form-control" type="text" placeholder="e.g. 8L – 15L per annum"></div>
+        <div class="form-group"><label>Location</label><input class="form-control" id="jLocation" type="text" placeholder="City / Remote"></div>
+        <div class="form-group"><label>Salary Range (₹)</label><input class="form-control" id="jSalary" type="text" placeholder="e.g. 8L – 15L per annum"></div>
       </div>
-      <div class="form-group"><label>Job Description</label><textarea class="form-control" rows="3" placeholder="Describe the role..."></textarea></div>
+      <div class="form-group"><label>Job Description</label><textarea class="form-control" id="jDesc" rows="3" placeholder="Describe the role..."></textarea></div>
+      <div class="form-group">
+        <label>Status</label>
+        <select class="form-control" id="jStatus"><option value="active">Active</option><option value="pending">Review</option><option value="inactive">Closed</option></select>
+      </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('jobModal')">Cancel</button>
-        <button class="btn btn-primary" onclick="showToast('Job posted successfully!'); closeModal('jobModal')"><i class="fas fa-bullhorn"></i> Post Job</button>
+        <button class="btn btn-primary" id="jobSaveBtn" onclick="saveJob()"><i class="fas fa-bullhorn"></i> Post Job</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Job Modal -->
+  <div class="modal-overlay" id="deleteJobModal">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-header">
+        <h3>Job Hatao</h3>
+        <button class="close-btn" onclick="closeModal('deleteJobModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <p style="color:var(--text-muted);margin-bottom:8px">Kya aap sure hain? Ye job posting delete ho jayegi.</p>
+      <p id="deleteJobName" style="font-weight:700"></p>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('deleteJobModal')">Cancel</button>
+        <button class="btn btn-danger" onclick="confirmDeleteJob()"><i class="fas fa-trash"></i> Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Candidate Modal -->
+  <div class="modal-overlay" id="viewCandModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Candidate Details</h3>
+        <button class="close-btn" onclick="closeModal('viewCandModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="viewCandContent"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('viewCandModal')">Close</button>
+        <button class="btn btn-primary" onclick="showToast('Offer letter sent! ✓'); closeModal('viewCandModal')"><i class="fas fa-paper-plane"></i> Send Offer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reject Candidate Modal -->
+  <div class="modal-overlay" id="rejectCandModal">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-header">
+        <h3>Candidate Reject Karo</h3>
+        <button class="close-btn" onclick="closeModal('rejectCandModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <p style="color:var(--text-muted);margin-bottom:8px">Is candidate ko reject karna chahte ho?</p>
+      <p id="rejectCandName" style="font-weight:700"></p>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('rejectCandModal')">Cancel</button>
+        <button class="btn btn-danger" onclick="confirmReject()"><i class="fas fa-times"></i> Reject</button>
       </div>
     </div>
   </div>
 
   <script src="../js/main.js"></script>
+  <script>
+    // ===== DATA =====
+    let jobs = [
+      { id:1, title:'Senior React Developer', dept:'Engineering', type:'Full-time', location:'Noida (Hybrid)', salary:'15L–25L', desc:'Looking for experienced React developer.', apps:24, postedOn:'10 Jun 2026', status:'active' },
+      { id:2, title:'Digital Marketing Lead', dept:'Marketing', type:'Full-time', location:'Delhi (Remote)', salary:'10L–18L', desc:'Lead our digital marketing team.', apps:31, postedOn:'15 Jun 2026', status:'active' },
+      { id:3, title:'HR Business Partner', dept:'HR', type:'Full-time', location:'Mumbai (On-site)', salary:'8L–14L', desc:'Strategic HR partner role.', apps:17, postedOn:'20 Jun 2026', status:'active' },
+      { id:4, title:'Finance Controller', dept:'Finance', type:'Full-time', location:'Delhi (On-site)', salary:'20L–30L', desc:'Oversee financial operations.', apps:12, postedOn:'22 Jun 2026', status:'pending' },
+    ];
+
+    let candidates = [
+      { id:1, name:'Sanjay Mehta', initials:'SM', color:'#4f46e5', email:'sanjay@gmail.com', appliedFor:'Senior React Developer', exp:'5 Years', appliedOn:'25 Jun', stage:'pending', stageLabel:'Interview' },
+      { id:2, name:'Riya Joshi', initials:'RJ', color:'#10b981', email:'riya.j@gmail.com', appliedFor:'Digital Marketing Lead', exp:'7 Years', appliedOn:'24 Jun', stage:'approved', stageLabel:'Offer Sent' },
+      { id:3, name:'Karan Thakur', initials:'KT', color:'#f59e0b', email:'karan.t@gmail.com', appliedFor:'HR Business Partner', exp:'4 Years', appliedOn:'23 Jun', stage:'screening', stageLabel:'Screening' },
+    ];
+
+    let editingJobId = null;
+    let deletingJobId = null;
+    let rejectingCandId = null;
+
+    // ===== STATS =====
+    function updateStats() {
+      document.getElementById('statOpen').textContent = jobs.filter(j => j.status === 'active').length;
+      document.getElementById('statApps').textContent = candidates.length;
+    }
+
+    // ===== JOB TABLE =====
+    function renderJobs() {
+      const tbody = document.getElementById('jobTableBody');
+      tbody.innerHTML = jobs.map(j => `
+        <tr>
+          <td><strong>${j.title}</strong></td>
+          <td>${j.dept}</td>
+          <td>${j.location}</td>
+          <td>${j.apps}</td>
+          <td>${j.postedOn}</td>
+          <td><span class="badge-status ${j.status}">${j.status === 'active' ? 'Active' : j.status === 'pending' ? 'Review' : 'Closed'}</span></td>
+          <td><div class="action-btns">
+            <button class="icon-btn" title="View" onclick="viewJob(${j.id})"><i class="fas fa-eye"></i></button>
+            <button class="icon-btn" title="Edit" onclick="editJob(${j.id})"><i class="fas fa-edit"></i></button>
+            <button class="icon-btn danger" title="Delete" onclick="deleteJob(${j.id})"><i class="fas fa-trash"></i></button>
+          </div></td>
+        </tr>`).join('');
+      updateStats();
+    }
+
+    // ===== CANDIDATE TABLE =====
+    function renderCandidates() {
+      const tbody = document.getElementById('candidateTableBody');
+      tbody.innerHTML = candidates.map(c => `
+        <tr>
+          <td><div class="emp-cell">
+            <div class="emp-avatar" style="background:${c.color}">${c.initials}</div>
+            <div><div class="emp-name">${c.name}</div><div class="emp-id">${c.email}</div></div>
+          </div></td>
+          <td>${c.appliedFor}</td>
+          <td>${c.exp}</td>
+          <td>${c.appliedOn}</td>
+          <td><span class="badge-status ${c.stage === 'screening' ? '' : c.stage}" style="${c.stage==='screening'?'background:#dbeafe;color:#1d4ed8':''}">${c.stageLabel}</span></td>
+          <td><div class="action-btns">
+            <button class="icon-btn" title="View" onclick="viewCandidate(${c.id})"><i class="fas fa-eye"></i></button>
+            <button class="icon-btn" title="Send Offer" onclick="showToast('Offer letter sent to ${c.name}! ✓')"><i class="fas fa-paper-plane"></i></button>
+            <button class="icon-btn danger" title="Reject" onclick="rejectCandidate(${c.id})"><i class="fas fa-times"></i></button>
+          </div></td>
+        </tr>`).join('');
+    }
+
+    // ===== VIEW JOB =====
+    function viewJob(id) {
+      const j = jobs.find(x => x.id === id);
+      document.getElementById('viewJobContent').innerHTML = `
+        <div style="background:var(--bg);padding:16px;border-radius:10px;margin-bottom:16px">
+          <h2 style="font-size:1.1rem;margin-bottom:4px">${j.title}</h2>
+          <span class="badge-status ${j.status}">${j.status === 'active' ? 'Active' : 'Review'}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+          ${dBox('Department', j.dept)}
+          ${dBox('Job Type', j.type)}
+          ${dBox('Location', j.location)}
+          ${dBox('Salary Range', '₹' + j.salary)}
+          ${dBox('Applications', j.apps)}
+          ${dBox('Posted On', j.postedOn)}
+        </div>
+        <div style="background:var(--bg);padding:14px;border-radius:8px">
+          <div style="font-size:0.72rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:6px">Job Description</div>
+          <p style="font-size:0.875rem">${j.desc}</p>
+        </div>`;
+      openModal('viewJobModal');
+    }
+
+    function dBox(label, val) {
+      return `<div style="background:var(--bg);padding:12px;border-radius:8px">
+        <div style="font-size:0.72rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px">${label}</div>
+        <div style="font-weight:600">${val}</div></div>`;
+    }
+
+    // ===== POST JOB =====
+    function openPostJobModal() {
+      editingJobId = null;
+      document.getElementById('jobModalTitle').textContent = 'Post New Job';
+      document.getElementById('jobSaveBtn').innerHTML = '<i class="fas fa-bullhorn"></i> Post Job';
+      ['jTitle','jLocation','jSalary','jDesc'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('jStatus').value = 'active';
+      openModal('jobModal');
+    }
+
+    // ===== EDIT JOB =====
+    function editJob(id) {
+      const j = jobs.find(x => x.id === id);
+      editingJobId = id;
+      document.getElementById('jobModalTitle').textContent = 'Edit Job Posting';
+      document.getElementById('jobSaveBtn').innerHTML = '<i class="fas fa-check"></i> Save Changes';
+      document.getElementById('jTitle').value = j.title;
+      document.getElementById('jDept').value = j.dept;
+      document.getElementById('jType').value = j.type;
+      document.getElementById('jLocation').value = j.location;
+      document.getElementById('jSalary').value = j.salary;
+      document.getElementById('jDesc').value = j.desc;
+      document.getElementById('jStatus').value = j.status;
+      openModal('jobModal');
+    }
+
+    // ===== SAVE JOB =====
+    function saveJob() {
+      const title = document.getElementById('jTitle').value.trim();
+      if (!title) { showToast('Job title required!', 'error'); return; }
+      const data = {
+        title,
+        dept: document.getElementById('jDept').value,
+        type: document.getElementById('jType').value,
+        location: document.getElementById('jLocation').value.trim(),
+        salary: document.getElementById('jSalary').value.trim(),
+        desc: document.getElementById('jDesc').value.trim(),
+        status: document.getElementById('jStatus').value,
+      };
+      if (editingJobId) {
+        const idx = jobs.findIndex(x => x.id === editingJobId);
+        jobs[idx] = { ...jobs[idx], ...data };
+        showToast('Job updated successfully! ✓');
+      } else {
+        jobs.push({ id: jobs.length+1, apps:0, postedOn: new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}), ...data });
+        showToast('Job posted successfully! ✓');
+      }
+      renderJobs();
+      closeModal('jobModal');
+    }
+
+    // ===== DELETE JOB =====
+    function deleteJob(id) {
+      const j = jobs.find(x => x.id === id);
+      deletingJobId = id;
+      document.getElementById('deleteJobName').textContent = j.title;
+      openModal('deleteJobModal');
+    }
+    function confirmDeleteJob() {
+      jobs = jobs.filter(x => x.id !== deletingJobId);
+      renderJobs();
+      closeModal('deleteJobModal');
+      showToast('Job posting deleted.', 'error');
+    }
+
+    // ===== VIEW CANDIDATE =====
+    function viewCandidate(id) {
+      const c = candidates.find(x => x.id === id);
+      document.getElementById('viewCandContent').innerHTML = `
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:16px;background:var(--bg);border-radius:10px">
+          <div class="emp-avatar" style="background:${c.color};width:56px;height:56px;font-size:1.2rem">${c.initials}</div>
+          <div>
+            <div style="font-size:1.1rem;font-weight:800">${c.name}</div>
+            <div style="color:var(--text-muted);font-size:0.85rem">${c.email}</div>
+          </div>
+          <span class="badge-status ${c.stage}" style="margin-left:auto;${c.stage==='screening'?'background:#dbeafe;color:#1d4ed8':''}">${c.stageLabel}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          ${dBox('Applied For', c.appliedFor)}
+          ${dBox('Experience', c.exp)}
+          ${dBox('Applied On', c.appliedOn)}
+          ${dBox('Current Stage', c.stageLabel)}
+        </div>`;
+      openModal('viewCandModal');
+    }
+
+    // ===== REJECT CANDIDATE =====
+    function rejectCandidate(id) {
+      const c = candidates.find(x => x.id === id);
+      rejectingCandId = id;
+      document.getElementById('rejectCandName').textContent = c.name;
+      openModal('rejectCandModal');
+    }
+    function confirmReject() {
+      candidates = candidates.filter(x => x.id !== rejectingCandId);
+      renderCandidates();
+      closeModal('rejectCandModal');
+      showToast('Candidate rejected.', 'error');
+    }
+
+    // Init
+    renderJobs();
+    renderCandidates();
+  </script>
 </body>
 </html>
