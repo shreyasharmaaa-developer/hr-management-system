@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HR Management System</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="fas fa-users-cog"></i>
+        <span>HR System</span>
+      </div>
+      <button class="toggle-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item active">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="pages/employees.html" class="nav-item">
+        <i class="fas fa-user-tie"></i>
+        <span>Employees</span>
+      </a>
+      <a href="pages/attendance.html" class="nav-item">
+        <i class="fas fa-calendar-check"></i>
+        <span>Attendance</span>
+      </a>
+      <a href="pages/payroll.html" class="nav-item">
+        <i class="fas fa-money-bill-wave"></i>
+        <span>Payroll</span>
+      </a>
+      <a href="pages/leave.html" class="nav-item">
+        <i class="fas fa-calendar-times"></i>
+        <span>Leave Management</span>
+      </a>
+      <a href="pages/recruitment.html" class="nav-item">
+        <i class="fas fa-user-plus"></i>
+        <span>Recruitment</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">AD</div>
+        <div>
+          <div class="user-name">Admin User</div>
+          <div class="user-role">HR Manager</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent">
+    <header class="topbar">
+      <div class="page-title">
+        <h1>Dashboard</h1>
+        <p>Welcome back! Here's what's happening today.</p>
+      </div>
+      <div class="topbar-right">
+        <div class="date-display" id="currentDate"></div>
+        <div class="notification-bell">
+          <i class="fas fa-bell"></i>
+          <span class="badge">3</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Stats Cards -->
+    <section class="stats-grid">
+      <div class="stat-card blue">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div class="stat-info">
+          <div class="stat-number" data-target="248">0</div>
+          <div class="stat-label">Total Employees</div>
+        </div>
+        <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 4.2%</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon"><i class="fas fa-user-check"></i></div>
+        <div class="stat-info">
+          <div class="stat-number" data-target="213">0</div>
+          <div class="stat-label">Present Today</div>
+        </div>
+        <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 2.1%</div>
+      </div>
+      <div class="stat-card orange">
+        <div class="stat-icon"><i class="fas fa-user-clock"></i></div>
+        <div class="stat-info">
+          <div class="stat-number" data-target="18">0</div>
+          <div class="stat-label">On Leave</div>
+        </div>
+        <div class="stat-trend down"><i class="fas fa-arrow-down"></i> 1.5%</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
+        <div class="stat-info">
+          <div class="stat-number" data-target="12">0</div>
+          <div class="stat-label">Open Positions</div>
+        </div>
+        <div class="stat-trend up"><i class="fas fa-arrow-up"></i> 8.0%</div>
+      </div>
+    </section>
+
+    <!-- Charts & Tables Row -->
+    <section class="dashboard-row">
+      <!-- Department Chart -->
+      <div class="card chart-card">
+        <div class="card-header">
+          <h2>Department Overview</h2>
+        </div>
+        <div class="dept-bars">
+          <div class="dept-bar-item">
+            <span class="dept-name">Engineering</span>
+            <div class="bar-track"><div class="bar-fill" style="width:72%; background:#4f46e5"></div></div>
+            <span class="dept-count">72</span>
+          </div>
+          <div class="dept-bar-item">
+            <span class="dept-name">Sales</span>
+            <div class="bar-track"><div class="bar-fill" style="width:55%; background:#10b981"></div></div>
+            <span class="dept-count">55</span>
+          </div>
+          <div class="dept-bar-item">
+            <span class="dept-name">Marketing</span>
+            <div class="bar-track"><div class="bar-fill" style="width:38%; background:#f59e0b"></div></div>
+            <span class="dept-count">38</span>
+          </div>
+          <div class="dept-bar-item">
+            <span class="dept-name">Operations</span>
+            <div class="bar-track"><div class="bar-fill" style="width:45%; background:#ef4444"></div></div>
+            <span class="dept-count">45</span>
+          </div>
+          <div class="dept-bar-item">
+            <span class="dept-name">HR</span>
+            <div class="bar-track"><div class="bar-fill" style="width:22%; background:#8b5cf6"></div></div>
+            <span class="dept-count">22</span>
+          </div>
+          <div class="dept-bar-item">
+            <span class="dept-name">Finance</span>
+            <div class="bar-track"><div class="bar-fill" style="width:16%; background:#06b6d4"></div></div>
+            <span class="dept-count">16</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activities -->
+      <div class="card activity-card">
+        <div class="card-header">
+          <h2>Recent Activities</h2>
+        </div>
+        <ul class="activity-list">
+          <li class="activity-item">
+            <div class="activity-icon green"><i class="fas fa-user-plus"></i></div>
+            <div class="activity-detail">
+              <strong>Rahul Sharma</strong> joined as Software Engineer
+              <div class="activity-time">2 hours ago</div>
+            </div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-icon orange"><i class="fas fa-calendar-times"></i></div>
+            <div class="activity-detail">
+              <strong>Priya Gupta</strong> applied for 3 days leave
+              <div class="activity-time">4 hours ago</div>
+            </div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-icon blue"><i class="fas fa-money-bill"></i></div>
+            <div class="activity-detail">
+              <strong>June Payroll</strong> processed successfully
+              <div class="activity-time">Yesterday</div>
+            </div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-icon purple"><i class="fas fa-star"></i></div>
+            <div class="activity-detail">
+              <strong>Amit Kumar</strong> promoted to Senior Manager
+              <div class="activity-time">2 days ago</div>
+            </div>
+          </li>
+          <li class="activity-item">
+            <div class="activity-icon red"><i class="fas fa-door-open"></i></div>
+            <div class="activity-detail">
+              <strong>Sneha Verma</strong> resigned from Marketing
+              <div class="activity-time">3 days ago</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="card upcoming-events">
+      <div class="card-header">
+        <h2>Upcoming Events</h2>
+      </div>
+      <div class="events-grid">
+        <div class="event-item">
+          <div class="event-date">
+            <span class="event-day">28</span>
+            <span class="event-month">Jun</span>
+          </div>
+          <div class="event-info">
+            <h4>Team Performance Review</h4>
+            <p><i class="fas fa-clock"></i> 10:00 AM | Conference Room A</p>
+          </div>
+          <span class="event-tag blue">Meeting</span>
+        </div>
+        <div class="event-item">
+          <div class="event-date">
+            <span class="event-day">30</span>
+            <span class="event-month">Jun</span>
+          </div>
+          <div class="event-info">
+            <h4>Payroll Processing Deadline</h4>
+            <p><i class="fas fa-clock"></i> End of Day</p>
+          </div>
+          <span class="event-tag orange">Finance</span>
+        </div>
+        <div class="event-item">
+          <div class="event-date">
+            <span class="event-day">05</span>
+            <span class="event-month">Jul</span>
+          </div>
+          <div class="event-info">
+            <h4>New Employee Orientation</h4>
+            <p><i class="fas fa-clock"></i> 9:00 AM | Hall B</p>
+          </div>
+          <span class="event-tag green">HR</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

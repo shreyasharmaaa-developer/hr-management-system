@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave Management – HR System</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"><i class="fas fa-users-cog"></i><span>HR System</span></div>
+      <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../index.html" class="nav-item"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+      <a href="employees.html" class="nav-item"><i class="fas fa-user-tie"></i><span>Employees</span></a>
+      <a href="attendance.html" class="nav-item"><i class="fas fa-calendar-check"></i><span>Attendance</span></a>
+      <a href="payroll.html" class="nav-item"><i class="fas fa-money-bill-wave"></i><span>Payroll</span></a>
+      <a href="leave.html" class="nav-item active"><i class="fas fa-calendar-times"></i><span>Leave Management</span></a>
+      <a href="recruitment.html" class="nav-item"><i class="fas fa-user-plus"></i><span>Recruitment</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">AD</div>
+        <div><div class="user-name">Admin User</div><div class="user-role">HR Manager</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="page-title"><h1>Leave Management</h1><p>Track and approve employee leave requests</p></div>
+      <div class="page-actions">
+        <button class="btn btn-primary" onclick="openModal('leaveModal')"><i class="fas fa-plus"></i> Apply Leave</button>
+      </div>
+    </header>
+
+    <section class="stats-grid">
+      <div class="stat-card orange"><div class="stat-icon"><i class="fas fa-hourglass-half"></i></div><div class="stat-info"><div class="stat-number" data-target="7">0</div><div class="stat-label">Pending Requests</div></div></div>
+      <div class="stat-card green"><div class="stat-icon"><i class="fas fa-check-circle"></i></div><div class="stat-info"><div class="stat-number" data-target="42">0</div><div class="stat-label">Approved This Month</div></div></div>
+      <div class="stat-card" style="border-top:3px solid #ef4444"><div class="stat-icon" style="background:#fee2e2;color:#ef4444"><i class="fas fa-times-circle"></i></div><div class="stat-info"><div class="stat-number" data-target="5">0</div><div class="stat-label">Rejected This Month</div></div></div>
+      <div class="stat-card blue"><div class="stat-icon"><i class="fas fa-calendar-alt"></i></div><div class="stat-info"><div class="stat-number" data-target="18">0</div><div class="stat-label">Currently on Leave</div></div></div>
+    </section>
+
+    <div class="card">
+      <div class="card-header"><h2>Leave Requests</h2></div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr><th>Employee</th><th>Leave Type</th><th>From</th><th>To</th><th>Days</th><th>Reason</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#10b981">PG</div><div class="emp-name">Priya Gupta</div></div></td>
+              <td>Casual Leave</td><td>28 Jun</td><td>30 Jun</td><td>3</td><td>Personal work</td>
+              <td><span class="badge-status approved">Approved</span></td>
+              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button></div></td>
+            </tr>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#4f46e5">RS</div><div class="emp-name">Rahul Sharma</div></div></td>
+              <td>Sick Leave</td><td>05 Jul</td><td>06 Jul</td><td>2</td><td>Medical appointment</td>
+              <td><span class="badge-status pending">Pending</span></td>
+              <td><div class="action-btns">
+                <button class="icon-btn" onclick="showToast('Leave approved! ✓', 'success')"><i class="fas fa-check" style="color:green"></i></button>
+                <button class="icon-btn danger" onclick="showToast('Leave rejected.', 'error')"><i class="fas fa-times"></i></button>
+              </div></td>
+            </tr>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#06b6d4">VS</div><div class="emp-name">Vikram Singh</div></div></td>
+              <td>Annual Leave</td><td>10 Jul</td><td>20 Jul</td><td>11</td><td>Family vacation</td>
+              <td><span class="badge-status pending">Pending</span></td>
+              <td><div class="action-btns">
+                <button class="icon-btn" onclick="showToast('Leave approved! ✓', 'success')"><i class="fas fa-check" style="color:green"></i></button>
+                <button class="icon-btn danger" onclick="showToast('Leave rejected.', 'error')"><i class="fas fa-times"></i></button>
+              </div></td>
+            </tr>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#f59e0b">AK</div><div class="emp-name">Amit Kumar</div></div></td>
+              <td>Maternity/Paternity</td><td>01 Aug</td><td>01 Nov</td><td>93</td><td>Paternity leave</td>
+              <td><span class="badge-status approved">Approved</span></td>
+              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Apply Leave Modal -->
+  <div class="modal-overlay" id="leaveModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Apply for Leave</h3>
+        <button class="close-btn" onclick="closeModal('leaveModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="form-group">
+        <label>Employee</label>
+        <select class="form-control"><option>Rahul Sharma</option><option>Priya Gupta</option><option>Amit Kumar</option></select>
+      </div>
+      <div class="form-group">
+        <label>Leave Type</label>
+        <select class="form-control"><option>Casual Leave</option><option>Sick Leave</option><option>Annual Leave</option><option>Maternity/Paternity</option><option>Compensatory Off</option></select>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>From Date</label><input type="date" class="form-control"></div>
+        <div class="form-group"><label>To Date</label><input type="date" class="form-control"></div>
+      </div>
+      <div class="form-group">
+        <label>Reason</label>
+        <textarea class="form-control" rows="3" placeholder="Reason for leave..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('leaveModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="showToast('Leave request submitted!'); closeModal('leaveModal')"><i class="fas fa-paper-plane"></i> Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

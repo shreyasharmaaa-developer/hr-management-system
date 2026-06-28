@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recruitment – HR System</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"><i class="fas fa-users-cog"></i><span>HR System</span></div>
+      <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../index.html" class="nav-item"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+      <a href="employees.html" class="nav-item"><i class="fas fa-user-tie"></i><span>Employees</span></a>
+      <a href="attendance.html" class="nav-item"><i class="fas fa-calendar-check"></i><span>Attendance</span></a>
+      <a href="payroll.html" class="nav-item"><i class="fas fa-money-bill-wave"></i><span>Payroll</span></a>
+      <a href="leave.html" class="nav-item"><i class="fas fa-calendar-times"></i><span>Leave Management</span></a>
+      <a href="recruitment.html" class="nav-item active"><i class="fas fa-user-plus"></i><span>Recruitment</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">AD</div>
+        <div><div class="user-name">Admin User</div><div class="user-role">HR Manager</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="page-title"><h1>Recruitment</h1><p>Job postings &amp; candidate pipeline</p></div>
+      <div class="page-actions">
+        <button class="btn btn-primary" onclick="openModal('jobModal')"><i class="fas fa-plus"></i> Post Job</button>
+      </div>
+    </header>
+
+    <section class="stats-grid">
+      <div class="stat-card blue"><div class="stat-icon"><i class="fas fa-briefcase"></i></div><div class="stat-info"><div class="stat-number" data-target="12">0</div><div class="stat-label">Open Positions</div></div></div>
+      <div class="stat-card orange"><div class="stat-icon"><i class="fas fa-file-alt"></i></div><div class="stat-info"><div class="stat-number" data-target="84">0</div><div class="stat-label">Applications</div></div></div>
+      <div class="stat-card purple"><div class="stat-icon"><i class="fas fa-user-clock"></i></div><div class="stat-info"><div class="stat-number" data-target="18">0</div><div class="stat-label">Interviews Scheduled</div></div></div>
+      <div class="stat-card green"><div class="stat-icon"><i class="fas fa-handshake"></i></div><div class="stat-info"><div class="stat-number" data-target="5">0</div><div class="stat-label">Offers Extended</div></div></div>
+    </section>
+
+    <div class="card">
+      <div class="card-header"><h2>Active Job Postings</h2></div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr><th>Job Title</th><th>Department</th><th>Location</th><th>Applications</th><th>Posted On</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Senior React Developer</strong></td><td>Engineering</td><td>Noida (Hybrid)</td><td>24</td><td>10 Jun 2026</td>
+              <td><span class="badge-status active">Active</span></td>
+              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Digital Marketing Lead</strong></td><td>Marketing</td><td>Delhi (Remote)</td><td>31</td><td>15 Jun 2026</td>
+              <td><span class="badge-status active">Active</span></td>
+              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button></div></td>
+            </tr>
+            <tr>
+              <td><strong>HR Business Partner</strong></td><td>HR</td><td>Mumbai (On-site)</td><td>17</td><td>20 Jun 2026</td>
+              <td><span class="badge-status active">Active</span></td>
+              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button></div></td>
+            </tr>
+            <tr>
+              <td><strong>Finance Controller</strong></td><td>Finance</td><td>Delhi (On-site)</td><td>12</td><td>22 Jun 2026</td>
+              <td><span class="badge-status pending">Review</span></td>
+              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:24px">
+      <div class="card-header"><h2>Recent Candidates</h2></div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr><th>Candidate</th><th>Applied For</th><th>Experience</th><th>Applied On</th><th>Stage</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#4f46e5">SM</div><div><div class="emp-name">Sanjay Mehta</div><div class="emp-id">sanjay@gmail.com</div></div></div></td>
+              <td>Senior React Developer</td><td>5 Years</td><td>25 Jun</td>
+              <td><span class="badge-status pending">Interview</span></td>
+              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn" onclick="showToast('Offer letter sent!')"><i class="fas fa-paper-plane"></i></button></div></td>
+            </tr>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#10b981">RJ</div><div><div class="emp-name">Riya Joshi</div><div class="emp-id">riya.j@gmail.com</div></div></div></td>
+              <td>Digital Marketing Lead</td><td>7 Years</td><td>24 Jun</td>
+              <td><span class="badge-status approved">Offer Sent</span></td>
+              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button></div></td>
+            </tr>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#f59e0b">KT</div><div><div class="emp-name">Karan Thakur</div><div class="emp-id">karan.t@gmail.com</div></div></div></td>
+              <td>HR Business Partner</td><td>4 Years</td><td>23 Jun</td>
+              <td><span class="badge-status" style="background:#dbeafe;color:#1d4ed8">Screening</span></td>
+              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn danger"><i class="fas fa-times"></i></button></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post Job Modal -->
+  <div class="modal-overlay" id="jobModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Post New Job</h3>
+        <button class="close-btn" onclick="closeModal('jobModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="form-group"><label>Job Title *</label><input class="form-control" type="text" placeholder="e.g. Senior Software Engineer" required></div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Department</label>
+          <select class="form-control"><option>Engineering</option><option>Marketing</option><option>Sales</option><option>HR</option><option>Finance</option></select>
+        </div>
+        <div class="form-group">
+          <label>Job Type</label>
+          <select class="form-control"><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Location</label><input class="form-control" type="text" placeholder="City / Remote"></div>
+        <div class="form-group"><label>Salary Range (₹)</label><input class="form-control" type="text" placeholder="e.g. 8L – 15L per annum"></div>
+      </div>
+      <div class="form-group"><label>Job Description</label><textarea class="form-control" rows="3" placeholder="Describe the role..."></textarea></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('jobModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="showToast('Job posted successfully!'); closeModal('jobModal')"><i class="fas fa-bullhorn"></i> Post Job</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

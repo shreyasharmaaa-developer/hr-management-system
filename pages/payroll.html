@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payroll – HR System</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo"><i class="fas fa-users-cog"></i><span>HR System</span></div>
+      <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../index.html" class="nav-item"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+      <a href="employees.html" class="nav-item"><i class="fas fa-user-tie"></i><span>Employees</span></a>
+      <a href="attendance.html" class="nav-item"><i class="fas fa-calendar-check"></i><span>Attendance</span></a>
+      <a href="payroll.html" class="nav-item active"><i class="fas fa-money-bill-wave"></i><span>Payroll</span></a>
+      <a href="leave.html" class="nav-item"><i class="fas fa-calendar-times"></i><span>Leave Management</span></a>
+      <a href="recruitment.html" class="nav-item"><i class="fas fa-user-plus"></i><span>Recruitment</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar">AD</div>
+        <div><div class="user-name">Admin User</div><div class="user-role">HR Manager</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="page-title">
+        <h1>Payroll</h1>
+        <p>Salary management &amp; payslip generation</p>
+      </div>
+      <div class="page-actions">
+        <select class="form-control" style="width:auto">
+          <option>June 2026</option>
+          <option>May 2026</option>
+          <option>April 2026</option>
+        </select>
+        <button class="btn btn-primary" onclick="showToast('Payroll processed successfully! ✓')">
+          <i class="fas fa-play"></i> Run Payroll
+        </button>
+      </div>
+    </header>
+
+    <section class="payroll-summary">
+      <div class="pay-stat">
+        <div class="pay-stat-label">Total Payroll (June)</div>
+        <div class="pay-stat-value">₹1,24,50,000</div>
+      </div>
+      <div class="pay-stat green-grad">
+        <div class="pay-stat-label">Salaries Processed</div>
+        <div class="pay-stat-value">248 Employees</div>
+      </div>
+      <div class="pay-stat orange-grad">
+        <div class="pay-stat-label">Pending Processing</div>
+        <div class="pay-stat-value">0</div>
+      </div>
+    </section>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>Payroll Details – June 2026</h2>
+        <button class="btn btn-outline btn-sm"><i class="fas fa-download"></i> Download All</button>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr><th>Employee</th><th>Department</th><th>Basic Salary</th><th>HRA</th><th>Allowances</th><th>Deductions</th><th>Net Pay</th><th>Payslip</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#4f46e5">RS</div><div><div class="emp-name">Rahul Sharma</div><div class="emp-id">EMP-001</div></div></div></td>
+              <td>Engineering</td><td>₹85,000</td><td>₹34,000</td><td>₹12,000</td><td>₹9,500</td><td><strong>₹1,21,500</strong></td>
+              <td><button class="btn btn-outline btn-sm" onclick="showToast('Payslip downloaded!')"><i class="fas fa-file-pdf"></i></button></td>
+            </tr>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#10b981">PG</div><div><div class="emp-name">Priya Gupta</div><div class="emp-id">EMP-002</div></div></div></td>
+              <td>Marketing</td><td>₹70,000</td><td>₹28,000</td><td>₹10,000</td><td>₹8,200</td><td><strong>₹99,800</strong></td>
+              <td><button class="btn btn-outline btn-sm" onclick="showToast('Payslip downloaded!')"><i class="fas fa-file-pdf"></i></button></td>
+            </tr>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#f59e0b">AK</div><div><div class="emp-name">Amit Kumar</div><div class="emp-id">EMP-003</div></div></div></td>
+              <td>Operations</td><td>₹1,20,000</td><td>₹48,000</td><td>₹18,000</td><td>₹15,000</td><td><strong>₹1,71,000</strong></td>
+              <td><button class="btn btn-outline btn-sm" onclick="showToast('Payslip downloaded!')"><i class="fas fa-file-pdf"></i></button></td>
+            </tr>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#8b5cf6">NK</div><div><div class="emp-name">Neha Kapoor</div><div class="emp-id">EMP-005</div></div></div></td>
+              <td>HR</td><td>₹55,000</td><td>₹22,000</td><td>₹8,000</td><td>₹6,500</td><td><strong>₹78,500</strong></td>
+              <td><button class="btn btn-outline btn-sm" onclick="showToast('Payslip downloaded!')"><i class="fas fa-file-pdf"></i></button></td>
+            </tr>
+            <tr>
+              <td><div class="emp-cell"><div class="emp-avatar" style="background:#06b6d4">VS</div><div><div class="emp-name">Vikram Singh</div><div class="emp-id">EMP-006</div></div></div></td>
+              <td>Sales</td><td>₹50,000</td><td>₹20,000</td><td>₹15,000</td><td>₹5,800</td><td><strong>₹79,200</strong></td>
+              <td><button class="btn btn-outline btn-sm" onclick="showToast('Payslip downloaded!')"><i class="fas fa-file-pdf"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
