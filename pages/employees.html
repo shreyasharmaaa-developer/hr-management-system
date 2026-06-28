@@ -40,7 +40,7 @@
           <i class="fas fa-search"></i>
           <input type="text" id="empSearch" placeholder="Search employees...">
         </div>
-        <button class="btn btn-primary" onclick="openModal('addEmpModal')">
+        <button class="btn btn-primary" onclick="openAddModal()">
           <i class="fas fa-plus"></i> Add Employee
         </button>
       </div>
@@ -60,76 +60,53 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#4f46e5">RS</div><div><div class="emp-name">Rahul Sharma</div><div class="emp-id">rahul@company.com</div></div></div></td>
-              <td>EMP-001</td><td>Engineering</td><td>Software Engineer</td><td>15 Jan 2023</td>
-              <td><span class="badge-status active">Active</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button><button class="icon-btn danger"><i class="fas fa-trash"></i></button></div></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#10b981">PG</div><div><div class="emp-name">Priya Gupta</div><div class="emp-id">priya@company.com</div></div></div></td>
-              <td>EMP-002</td><td>Marketing</td><td>Marketing Manager</td><td>20 Mar 2022</td>
-              <td><span class="badge-status active">Active</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button><button class="icon-btn danger"><i class="fas fa-trash"></i></button></div></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#f59e0b">AK</div><div><div class="emp-name">Amit Kumar</div><div class="emp-id">amit@company.com</div></div></div></td>
-              <td>EMP-003</td><td>Operations</td><td>Senior Manager</td><td>05 Jun 2020</td>
-              <td><span class="badge-status active">Active</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button><button class="icon-btn danger"><i class="fas fa-trash"></i></button></div></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#ef4444">SV</div><div><div class="emp-name">Sneha Verma</div><div class="emp-id">sneha@company.com</div></div></div></td>
-              <td>EMP-004</td><td>Finance</td><td>Finance Analyst</td><td>10 Aug 2021</td>
-              <td><span class="badge-status inactive">Inactive</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button><button class="icon-btn danger"><i class="fas fa-trash"></i></button></div></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#8b5cf6">NK</div><div><div class="emp-name">Neha Kapoor</div><div class="emp-id">neha@company.com</div></div></div></td>
-              <td>EMP-005</td><td>HR</td><td>HR Executive</td><td>01 Dec 2022</td>
-              <td><span class="badge-status active">Active</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button><button class="icon-btn danger"><i class="fas fa-trash"></i></button></div></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#06b6d4">VS</div><div><div class="emp-name">Vikram Singh</div><div class="emp-id">vikram@company.com</div></div></div></td>
-              <td>EMP-006</td><td>Sales</td><td>Sales Executive</td><td>18 Feb 2023</td>
-              <td><span class="badge-status active">Active</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button><button class="icon-btn"><i class="fas fa-edit"></i></button><button class="icon-btn danger"><i class="fas fa-trash"></i></button></div></td>
-            </tr>
-          </tbody>
+          <tbody id="empTableBody"></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- Add Employee Modal -->
-  <div class="modal-overlay" id="addEmpModal">
+  <!-- View Modal -->
+  <div class="modal-overlay" id="viewModal">
     <div class="modal">
       <div class="modal-header">
-        <h3>Add New Employee</h3>
-        <button class="close-btn" onclick="closeModal('addEmpModal')"><i class="fas fa-times"></i></button>
+        <h3>Employee Details</h3>
+        <button class="close-btn" onclick="closeModal('viewModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="viewContent"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('viewModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal-overlay" id="empModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add New Employee</h3>
+        <button class="close-btn" onclick="closeModal('empModal')"><i class="fas fa-times"></i></button>
       </div>
       <div class="form-grid">
         <div class="form-group">
           <label>First Name *</label>
-          <input class="form-control" type="text" placeholder="First Name" required>
+          <input class="form-control" id="fFirstName" type="text" placeholder="First Name">
         </div>
         <div class="form-group">
           <label>Last Name *</label>
-          <input class="form-control" type="text" placeholder="Last Name" required>
+          <input class="form-control" id="fLastName" type="text" placeholder="Last Name">
         </div>
         <div class="form-group">
           <label>Email *</label>
-          <input class="form-control" type="email" placeholder="Email Address" required>
+          <input class="form-control" id="fEmail" type="email" placeholder="Email Address">
         </div>
         <div class="form-group">
           <label>Phone</label>
-          <input class="form-control" type="tel" placeholder="Phone Number">
+          <input class="form-control" id="fPhone" type="tel" placeholder="Phone Number">
         </div>
         <div class="form-group">
           <label>Department *</label>
-          <select class="form-control" required>
+          <select class="form-control" id="fDept">
             <option value="">Select Department</option>
             <option>Engineering</option>
             <option>Marketing</option>
@@ -141,27 +118,209 @@
         </div>
         <div class="form-group">
           <label>Position *</label>
-          <input class="form-control" type="text" placeholder="Job Title" required>
+          <input class="form-control" id="fPosition" type="text" placeholder="Job Title">
         </div>
         <div class="form-group">
           <label>Join Date</label>
-          <input class="form-control" type="date">
+          <input class="form-control" id="fJoinDate" type="date">
         </div>
         <div class="form-group">
           <label>Salary (₹)</label>
-          <input class="form-control" type="number" placeholder="Monthly Salary">
+          <input class="form-control" id="fSalary" type="number" placeholder="Monthly Salary">
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <select class="form-control" id="fStatus">
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-outline" onclick="closeModal('addEmpModal')">Cancel</button>
-        <button class="btn btn-primary" onclick="showToast('Employee added successfully!'); closeModal('addEmpModal')">
-          <i class="fas fa-check"></i> Add Employee
+        <button class="btn btn-outline" onclick="closeModal('empModal')">Cancel</button>
+        <button class="btn btn-primary" id="saveBtn" onclick="saveEmployee()">
+          <i class="fas fa-check"></i> Save
         </button>
       </div>
     </div>
   </div>
 
+  <!-- Delete Confirm Modal -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal" style="max-width:400px">
+      <div class="modal-header">
+        <h3>Delete Employee</h3>
+        <button class="close-btn" onclick="closeModal('deleteModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <p style="color:var(--text-muted);margin-bottom:8px">Kya aap sure hain? Ye action undo nahi hogi.</p>
+      <p id="deleteEmpName" style="font-weight:700;font-size:1rem"></p>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('deleteModal')">Cancel</button>
+        <button class="btn btn-danger" onclick="confirmDelete()"><i class="fas fa-trash"></i> Delete</button>
+      </div>
+    </div>
+  </div>
+
   <script src="../js/main.js"></script>
-  <script>filterTable('empSearch', 'empTable');</script>
+  <script>
+    let employees = [
+      { id:1, empId:'EMP-001', firstName:'Rahul', lastName:'Sharma', email:'rahul@company.com', phone:'9876543210', dept:'Engineering', position:'Software Engineer', joinDate:'2023-01-15', salary:'85000', status:'active', color:'#4f46e5' },
+      { id:2, empId:'EMP-002', firstName:'Priya', lastName:'Gupta', email:'priya@company.com', phone:'9876543211', dept:'Marketing', position:'Marketing Manager', joinDate:'2022-03-20', salary:'70000', status:'active', color:'#10b981' },
+      { id:3, empId:'EMP-003', firstName:'Amit', lastName:'Kumar', email:'amit@company.com', phone:'9876543212', dept:'Operations', position:'Senior Manager', joinDate:'2020-06-05', salary:'120000', status:'active', color:'#f59e0b' },
+      { id:4, empId:'EMP-004', firstName:'Sneha', lastName:'Verma', email:'sneha@company.com', phone:'9876543213', dept:'Finance', position:'Finance Analyst', joinDate:'2021-08-10', salary:'60000', status:'inactive', color:'#ef4444' },
+      { id:5, empId:'EMP-005', firstName:'Neha', lastName:'Kapoor', email:'neha@company.com', phone:'9876543214', dept:'HR', position:'HR Executive', joinDate:'2022-12-01', salary:'55000', status:'active', color:'#8b5cf6' },
+      { id:6, empId:'EMP-006', firstName:'Vikram', lastName:'Singh', email:'vikram@company.com', phone:'9876543215', dept:'Sales', position:'Sales Executive', joinDate:'2023-02-18', salary:'50000', status:'active', color:'#06b6d4' },
+    ];
+
+    let editingId = null;
+    let deletingId = null;
+
+    function initials(e) { return (e.firstName[0] + e.lastName[0]).toUpperCase(); }
+    function formatDate(d) {
+      if (!d) return '–';
+      return new Date(d).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+    }
+
+    function renderTable(data) {
+      const tbody = document.getElementById('empTableBody');
+      if (!data) data = employees;
+      tbody.innerHTML = data.map(e => `
+        <tr>
+          <td><div class="emp-cell">
+            <div class="emp-avatar" style="background:${e.color}">${initials(e)}</div>
+            <div><div class="emp-name">${e.firstName} ${e.lastName}</div><div class="emp-id">${e.email}</div></div>
+          </div></td>
+          <td>${e.empId}</td>
+          <td>${e.dept}</td>
+          <td>${e.position}</td>
+          <td>${formatDate(e.joinDate)}</td>
+          <td><span class="badge-status ${e.status}">${e.status === 'active' ? 'Active' : 'Inactive'}</span></td>
+          <td><div class="action-btns">
+            <button class="icon-btn" title="View" onclick="viewEmployee(${e.id})"><i class="fas fa-eye"></i></button>
+            <button class="icon-btn" title="Edit" onclick="editEmployee(${e.id})"><i class="fas fa-edit"></i></button>
+            <button class="icon-btn danger" title="Delete" onclick="deleteEmployee(${e.id})"><i class="fas fa-trash"></i></button>
+          </div></td>
+        </tr>
+      `).join('');
+    }
+
+    function viewEmployee(id) {
+      const e = employees.find(x => x.id === id);
+      document.getElementById('viewContent').innerHTML = `
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:16px;background:var(--bg);border-radius:10px">
+          <div class="emp-avatar" style="background:${e.color};width:56px;height:56px;font-size:1.2rem">${initials(e)}</div>
+          <div>
+            <div style="font-size:1.2rem;font-weight:800">${e.firstName} ${e.lastName}</div>
+            <div style="color:var(--text-muted);font-size:0.85rem">${e.position} · ${e.dept}</div>
+          </div>
+          <span class="badge-status ${e.status}" style="margin-left:auto">${e.status === 'active' ? 'Active' : 'Inactive'}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          ${detail('Employee ID', e.empId)}
+          ${detail('Email', e.email)}
+          ${detail('Phone', e.phone || '–')}
+          ${detail('Department', e.dept)}
+          ${detail('Join Date', formatDate(e.joinDate))}
+          ${detail('Salary', e.salary ? '₹' + Number(e.salary).toLocaleString('en-IN') : '–')}
+        </div>`;
+      openModal('viewModal');
+    }
+
+    function detail(label, val) {
+      return `<div style="background:var(--bg);padding:12px;border-radius:8px">
+        <div style="font-size:0.72rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px">${label}</div>
+        <div style="font-weight:600">${val}</div>
+      </div>`;
+    }
+
+    function openAddModal() {
+      editingId = null;
+      document.getElementById('modalTitle').textContent = 'Add New Employee';
+      document.getElementById('saveBtn').innerHTML = '<i class="fas fa-check"></i> Add Employee';
+      clearForm();
+      openModal('empModal');
+    }
+
+    function editEmployee(id) {
+      const e = employees.find(x => x.id === id);
+      editingId = id;
+      document.getElementById('modalTitle').textContent = 'Edit Employee';
+      document.getElementById('saveBtn').innerHTML = '<i class="fas fa-check"></i> Save Changes';
+      document.getElementById('fFirstName').value = e.firstName;
+      document.getElementById('fLastName').value = e.lastName;
+      document.getElementById('fEmail').value = e.email;
+      document.getElementById('fPhone').value = e.phone || '';
+      document.getElementById('fDept').value = e.dept;
+      document.getElementById('fPosition').value = e.position;
+      document.getElementById('fJoinDate').value = e.joinDate;
+      document.getElementById('fSalary').value = e.salary || '';
+      document.getElementById('fStatus').value = e.status;
+      openModal('empModal');
+    }
+
+    function saveEmployee() {
+      const firstName = document.getElementById('fFirstName').value.trim();
+      const lastName  = document.getElementById('fLastName').value.trim();
+      const email     = document.getElementById('fEmail').value.trim();
+      const dept      = document.getElementById('fDept').value;
+      if (!firstName || !lastName || !email || !dept) {
+        showToast('Sabhi required fields fill karo!', 'error'); return;
+      }
+      const data = {
+        firstName, lastName, email,
+        phone:    document.getElementById('fPhone').value.trim(),
+        dept,
+        position: document.getElementById('fPosition').value.trim(),
+        joinDate: document.getElementById('fJoinDate').value,
+        salary:   document.getElementById('fSalary').value,
+        status:   document.getElementById('fStatus').value,
+      };
+      const colors = ['#4f46e5','#10b981','#f59e0b','#ef4444','#8b5cf6','#06b6d4','#ec4899','#14b8a6'];
+      if (editingId) {
+        const idx = employees.findIndex(x => x.id === editingId);
+        employees[idx] = { ...employees[idx], ...data };
+        showToast('Employee updated successfully! ✓');
+      } else {
+        const newId = employees.length + 1;
+        employees.push({ id: newId, empId: 'EMP-' + String(newId).padStart(3,'0'), color: colors[newId % colors.length], ...data });
+        showToast('Employee added successfully! ✓');
+      }
+      renderTable();
+      closeModal('empModal');
+    }
+
+    function deleteEmployee(id) {
+      const e = employees.find(x => x.id === id);
+      deletingId = id;
+      document.getElementById('deleteEmpName').textContent = e.firstName + ' ' + e.lastName;
+      openModal('deleteModal');
+    }
+
+    function confirmDelete() {
+      employees = employees.filter(x => x.id !== deletingId);
+      renderTable();
+      closeModal('deleteModal');
+      showToast('Employee deleted.', 'error');
+    }
+
+    function clearForm() {
+      ['fFirstName','fLastName','fEmail','fPhone','fDept','fPosition','fJoinDate','fSalary'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      document.getElementById('fStatus').value = 'active';
+    }
+
+    document.getElementById('empSearch').addEventListener('input', function() {
+      const q = this.value.toLowerCase();
+      renderTable(employees.filter(e =>
+        (e.firstName+' '+e.lastName).toLowerCase().includes(q) ||
+        e.empId.toLowerCase().includes(q) ||
+        e.dept.toLowerCase().includes(q) ||
+        e.position.toLowerCase().includes(q)
+      ));
+    });
+
+    renderTable();
+  </script>
 </body>
 </html>
