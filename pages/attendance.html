@@ -42,23 +42,10 @@
     </header>
 
     <section class="stats-grid">
-      <div class="stat-card green">
-        <div class="stat-icon"><i class="fas fa-user-check"></i></div>
-        <div class="stat-info"><div class="stat-number" data-target="213">0</div><div class="stat-label">Present</div></div>
-      </div>
-      <div class="stat-card" style="--top:#ef4444">
-        <div class="stat-icon" style="background:#fee2e2;color:#ef4444"><i class="fas fa-user-times"></i></div>
-        <div class="stat-info"><div class="stat-number" data-target="17">0</div><div class="stat-label">Absent</div></div>
-        <div class="stat-trend down"><i class="fas fa-arrow-down"></i> 2%</div>
-      </div>
-      <div class="stat-card orange">
-        <div class="stat-icon"><i class="fas fa-clock"></i></div>
-        <div class="stat-info"><div class="stat-number" data-target="9">0</div><div class="stat-label">Late Arrivals</div></div>
-      </div>
-      <div class="stat-card purple">
-        <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
-        <div class="stat-info"><div class="stat-number" data-target="18">0</div><div class="stat-label">On Leave</div></div>
-      </div>
+      <div class="stat-card green"><div class="stat-icon"><i class="fas fa-user-check"></i></div><div class="stat-info"><div class="stat-number" data-target="213">0</div><div class="stat-label">Present</div></div></div>
+      <div class="stat-card" style="border-top:3px solid #ef4444"><div class="stat-icon" style="background:#fee2e2;color:#ef4444"><i class="fas fa-user-times"></i></div><div class="stat-info"><div class="stat-number" data-target="17">0</div><div class="stat-label">Absent</div></div><div class="stat-trend down"><i class="fas fa-arrow-down"></i> 2%</div></div>
+      <div class="stat-card orange"><div class="stat-icon"><i class="fas fa-clock"></i></div><div class="stat-info"><div class="stat-number" data-target="9">0</div><div class="stat-label">Late Arrivals</div></div></div>
+      <div class="stat-card purple"><div class="stat-icon"><i class="fas fa-calendar-alt"></i></div><div class="stat-info"><div class="stat-number" data-target="18">0</div><div class="stat-label">On Leave</div></div></div>
     </section>
 
     <div class="card">
@@ -74,33 +61,7 @@
           <thead>
             <tr><th>Employee</th><th>Emp ID</th><th>Department</th><th>Check In</th><th>Check Out</th><th>Hours</th><th>Status</th></tr>
           </thead>
-          <tbody>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#4f46e5">RS</div><div class="emp-name">Rahul Sharma</div></div></td>
-              <td>EMP-001</td><td>Engineering</td><td>09:02 AM</td><td>06:15 PM</td><td>9h 13m</td>
-              <td><span class="badge-status present">Present</span></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#10b981">PG</div><div class="emp-name">Priya Gupta</div></div></td>
-              <td>EMP-002</td><td>Marketing</td><td>–</td><td>–</td><td>–</td>
-              <td><span class="badge-status leave">On Leave</span></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#f59e0b">AK</div><div class="emp-name">Amit Kumar</div></div></td>
-              <td>EMP-003</td><td>Operations</td><td>10:35 AM</td><td>07:00 PM</td><td>8h 25m</td>
-              <td><span class="badge-status late">Late</span></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#8b5cf6">NK</div><div class="emp-name">Neha Kapoor</div></div></td>
-              <td>EMP-005</td><td>HR</td><td>08:58 AM</td><td>05:58 PM</td><td>9h 00m</td>
-              <td><span class="badge-status present">Present</span></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#06b6d4">VS</div><div class="emp-name">Vikram Singh</div></div></td>
-              <td>EMP-006</td><td>Sales</td><td>–</td><td>–</td><td>–</td>
-              <td><span class="badge-status absent">Absent</span></td>
-            </tr>
-          </tbody>
+          <tbody id="attTableBody"></tbody>
         </table>
       </div>
     </div>
@@ -108,8 +69,42 @@
 
   <script src="../js/main.js"></script>
   <script>
+    const attendance = [
+      { name:'Rahul Sharma', initials:'RS', color:'#4f46e5', empId:'EMP-001', dept:'Engineering', checkIn:'09:02 AM', checkOut:'06:15 PM', hours:'9h 13m', status:'present', statusLabel:'Present' },
+      { name:'Priya Gupta', initials:'PG', color:'#10b981', empId:'EMP-002', dept:'Marketing', checkIn:'–', checkOut:'–', hours:'–', status:'leave', statusLabel:'On Leave' },
+      { name:'Amit Kumar', initials:'AK', color:'#f59e0b', empId:'EMP-003', dept:'Operations', checkIn:'10:35 AM', checkOut:'07:00 PM', hours:'8h 25m', status:'late', statusLabel:'Late' },
+      { name:'Neha Kapoor', initials:'NK', color:'#8b5cf6', empId:'EMP-005', dept:'HR', checkIn:'08:58 AM', checkOut:'05:58 PM', hours:'9h 00m', status:'present', statusLabel:'Present' },
+      { name:'Vikram Singh', initials:'VS', color:'#06b6d4', empId:'EMP-006', dept:'Sales', checkIn:'–', checkOut:'–', hours:'–', status:'absent', statusLabel:'Absent' },
+    ];
+
+    function renderAttendance(data) {
+      document.getElementById('attTableBody').innerHTML = (data || attendance).map(e => `
+        <tr>
+          <td><div class="emp-cell">
+            <div class="emp-avatar" style="background:${e.color}">${e.initials}</div>
+            <div class="emp-name">${e.name}</div>
+          </div></td>
+          <td>${e.empId}</td>
+          <td>${e.dept}</td>
+          <td>${e.checkIn}</td>
+          <td>${e.checkOut}</td>
+          <td>${e.hours}</td>
+          <td><span class="badge-status ${e.status}">${e.statusLabel}</span></td>
+        </tr>`).join('');
+    }
+
+    document.getElementById('attSearch').addEventListener('input', function() {
+      const q = this.value.toLowerCase();
+      renderAttendance(attendance.filter(e =>
+        e.name.toLowerCase().includes(q) ||
+        e.empId.toLowerCase().includes(q) ||
+        e.dept.toLowerCase().includes(q) ||
+        e.statusLabel.toLowerCase().includes(q)
+      ));
+    });
+
     document.getElementById('attDate').valueAsDate = new Date();
-    filterTable('attSearch', 'attTable');
+    renderAttendance();
   </script>
 </body>
 </html>

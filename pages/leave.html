@@ -38,9 +38,9 @@
     </header>
 
     <section class="stats-grid">
-      <div class="stat-card orange"><div class="stat-icon"><i class="fas fa-hourglass-half"></i></div><div class="stat-info"><div class="stat-number" data-target="7">0</div><div class="stat-label">Pending Requests</div></div></div>
-      <div class="stat-card green"><div class="stat-icon"><i class="fas fa-check-circle"></i></div><div class="stat-info"><div class="stat-number" data-target="42">0</div><div class="stat-label">Approved This Month</div></div></div>
-      <div class="stat-card" style="border-top:3px solid #ef4444"><div class="stat-icon" style="background:#fee2e2;color:#ef4444"><i class="fas fa-times-circle"></i></div><div class="stat-info"><div class="stat-number" data-target="5">0</div><div class="stat-label">Rejected This Month</div></div></div>
+      <div class="stat-card orange"><div class="stat-icon"><i class="fas fa-hourglass-half"></i></div><div class="stat-info"><div class="stat-number" id="statPending">0</div><div class="stat-label">Pending Requests</div></div></div>
+      <div class="stat-card green"><div class="stat-icon"><i class="fas fa-check-circle"></i></div><div class="stat-info"><div class="stat-number" id="statApproved">0</div><div class="stat-label">Approved This Month</div></div></div>
+      <div class="stat-card" style="border-top:3px solid #ef4444"><div class="stat-icon" style="background:#fee2e2;color:#ef4444"><i class="fas fa-times-circle"></i></div><div class="stat-info"><div class="stat-number" id="statRejected">0</div><div class="stat-label">Rejected This Month</div></div></div>
       <div class="stat-card blue"><div class="stat-icon"><i class="fas fa-calendar-alt"></i></div><div class="stat-info"><div class="stat-number" data-target="18">0</div><div class="stat-label">Currently on Leave</div></div></div>
     </section>
 
@@ -51,39 +51,24 @@
           <thead>
             <tr><th>Employee</th><th>Leave Type</th><th>From</th><th>To</th><th>Days</th><th>Reason</th><th>Status</th><th>Actions</th></tr>
           </thead>
-          <tbody>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#10b981">PG</div><div class="emp-name">Priya Gupta</div></div></td>
-              <td>Casual Leave</td><td>28 Jun</td><td>30 Jun</td><td>3</td><td>Personal work</td>
-              <td><span class="badge-status approved">Approved</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button></div></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#4f46e5">RS</div><div class="emp-name">Rahul Sharma</div></div></td>
-              <td>Sick Leave</td><td>05 Jul</td><td>06 Jul</td><td>2</td><td>Medical appointment</td>
-              <td><span class="badge-status pending">Pending</span></td>
-              <td><div class="action-btns">
-                <button class="icon-btn" onclick="showToast('Leave approved! ✓', 'success')"><i class="fas fa-check" style="color:green"></i></button>
-                <button class="icon-btn danger" onclick="showToast('Leave rejected.', 'error')"><i class="fas fa-times"></i></button>
-              </div></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#06b6d4">VS</div><div class="emp-name">Vikram Singh</div></div></td>
-              <td>Annual Leave</td><td>10 Jul</td><td>20 Jul</td><td>11</td><td>Family vacation</td>
-              <td><span class="badge-status pending">Pending</span></td>
-              <td><div class="action-btns">
-                <button class="icon-btn" onclick="showToast('Leave approved! ✓', 'success')"><i class="fas fa-check" style="color:green"></i></button>
-                <button class="icon-btn danger" onclick="showToast('Leave rejected.', 'error')"><i class="fas fa-times"></i></button>
-              </div></td>
-            </tr>
-            <tr>
-              <td><div class="emp-cell"><div class="emp-avatar" style="background:#f59e0b">AK</div><div class="emp-name">Amit Kumar</div></div></td>
-              <td>Maternity/Paternity</td><td>01 Aug</td><td>01 Nov</td><td>93</td><td>Paternity leave</td>
-              <td><span class="badge-status approved">Approved</span></td>
-              <td><div class="action-btns"><button class="icon-btn"><i class="fas fa-eye"></i></button></div></td>
-            </tr>
-          </tbody>
+          <tbody id="leaveTableBody"></tbody>
         </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Leave Modal -->
+  <div class="modal-overlay" id="viewLeaveModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Leave Request Details</h3>
+        <button class="close-btn" onclick="closeModal('viewLeaveModal')"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="viewLeaveContent"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('viewLeaveModal')">Close</button>
+        <button class="btn btn-danger" id="viewRejectBtn" onclick="rejectFromView()"><i class="fas fa-times"></i> Reject</button>
+        <button class="btn btn-success" id="viewApproveBtn" onclick="approveFromView()"><i class="fas fa-check"></i> Approve</button>
       </div>
     </div>
   </div>
@@ -97,27 +82,150 @@
       </div>
       <div class="form-group">
         <label>Employee</label>
-        <select class="form-control"><option>Rahul Sharma</option><option>Priya Gupta</option><option>Amit Kumar</option></select>
+        <select class="form-control" id="lEmp">
+          <option>Rahul Sharma</option><option>Priya Gupta</option><option>Amit Kumar</option><option>Neha Kapoor</option><option>Vikram Singh</option>
+        </select>
       </div>
       <div class="form-group">
         <label>Leave Type</label>
-        <select class="form-control"><option>Casual Leave</option><option>Sick Leave</option><option>Annual Leave</option><option>Maternity/Paternity</option><option>Compensatory Off</option></select>
+        <select class="form-control" id="lType">
+          <option>Casual Leave</option><option>Sick Leave</option><option>Annual Leave</option><option>Maternity/Paternity</option><option>Compensatory Off</option>
+        </select>
       </div>
       <div class="form-grid">
-        <div class="form-group"><label>From Date</label><input type="date" class="form-control"></div>
-        <div class="form-group"><label>To Date</label><input type="date" class="form-control"></div>
+        <div class="form-group"><label>From Date</label><input type="date" class="form-control" id="lFrom"></div>
+        <div class="form-group"><label>To Date</label><input type="date" class="form-control" id="lTo"></div>
       </div>
       <div class="form-group">
         <label>Reason</label>
-        <textarea class="form-control" rows="3" placeholder="Reason for leave..."></textarea>
+        <textarea class="form-control" id="lReason" rows="3" placeholder="Reason for leave..."></textarea>
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeModal('leaveModal')">Cancel</button>
-        <button class="btn btn-primary" onclick="showToast('Leave request submitted!'); closeModal('leaveModal')"><i class="fas fa-paper-plane"></i> Submit</button>
+        <button class="btn btn-primary" onclick="submitLeave()"><i class="fas fa-paper-plane"></i> Submit</button>
       </div>
     </div>
   </div>
 
   <script src="../js/main.js"></script>
+  <script>
+    let leaves = [
+      { id:1, emp:'Priya Gupta', initials:'PG', color:'#10b981', type:'Casual Leave', from:'28 Jun', to:'30 Jun', days:3, reason:'Personal work', status:'approved' },
+      { id:2, emp:'Rahul Sharma', initials:'RS', color:'#4f46e5', type:'Sick Leave', from:'05 Jul', to:'06 Jul', days:2, reason:'Medical appointment', status:'pending' },
+      { id:3, emp:'Vikram Singh', initials:'VS', color:'#06b6d4', type:'Annual Leave', from:'10 Jul', to:'20 Jul', days:11, reason:'Family vacation', status:'pending' },
+      { id:4, emp:'Amit Kumar', initials:'AK', color:'#f59e0b', type:'Paternity Leave', from:'01 Aug', to:'01 Nov', days:93, reason:'Paternity leave', status:'approved' },
+    ];
+
+    let viewingLeaveId = null;
+
+    function updateStats() {
+      document.getElementById('statPending').textContent = leaves.filter(l => l.status === 'pending').length;
+      document.getElementById('statApproved').textContent = leaves.filter(l => l.status === 'approved').length;
+      document.getElementById('statRejected').textContent = leaves.filter(l => l.status === 'rejected').length;
+    }
+
+    function renderLeaves() {
+      const tbody = document.getElementById('leaveTableBody');
+      tbody.innerHTML = leaves.map(l => {
+        const isPending = l.status === 'pending';
+        const actionBtns = isPending
+          ? `<button class="icon-btn" title="View" onclick="viewLeave(${l.id})"><i class="fas fa-eye"></i></button>
+             <button class="icon-btn" title="Approve" onclick="approveLeave(${l.id})" style="color:green"><i class="fas fa-check"></i></button>
+             <button class="icon-btn danger" title="Reject" onclick="rejectLeave(${l.id})"><i class="fas fa-times"></i></button>`
+          : `<button class="icon-btn" title="View" onclick="viewLeave(${l.id})"><i class="fas fa-eye"></i></button>`;
+        return `<tr>
+          <td><div class="emp-cell">
+            <div class="emp-avatar" style="background:${l.color}">${l.initials}</div>
+            <div class="emp-name">${l.emp}</div>
+          </div></td>
+          <td>${l.type}</td>
+          <td>${l.from}</td>
+          <td>${l.to}</td>
+          <td>${l.days}</td>
+          <td>${l.reason}</td>
+          <td><span class="badge-status ${l.status}">${l.status.charAt(0).toUpperCase()+l.status.slice(1)}</span></td>
+          <td><div class="action-btns">${actionBtns}</div></td>
+        </tr>`;
+      }).join('');
+      updateStats();
+    }
+
+    function viewLeave(id) {
+      const l = leaves.find(x => x.id === id);
+      viewingLeaveId = id;
+      const isPending = l.status === 'pending';
+      document.getElementById('viewApproveBtn').style.display = isPending ? '' : 'none';
+      document.getElementById('viewRejectBtn').style.display = isPending ? '' : 'none';
+      document.getElementById('viewLeaveContent').innerHTML = `
+        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--bg);border-radius:10px;margin-bottom:16px">
+          <div class="emp-avatar" style="background:${l.color};width:50px;height:50px;font-size:1.1rem">${l.initials}</div>
+          <div>
+            <div style="font-weight:800;font-size:1rem">${l.emp}</div>
+            <div style="color:var(--text-muted);font-size:0.85rem">${l.type}</div>
+          </div>
+          <span class="badge-status ${l.status}" style="margin-left:auto">${l.status.charAt(0).toUpperCase()+l.status.slice(1)}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          ${dBox('From', l.from)}
+          ${dBox('To', l.to)}
+          ${dBox('Total Days', l.days + ' days')}
+          ${dBox('Leave Type', l.type)}
+        </div>
+        <div style="margin-top:12px;background:var(--bg);padding:12px;border-radius:8px">
+          <div style="font-size:0.72rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px">Reason</div>
+          <div style="font-weight:600">${l.reason}</div>
+        </div>`;
+      openModal('viewLeaveModal');
+    }
+
+    function dBox(label, val) {
+      return `<div style="background:var(--bg);padding:12px;border-radius:8px">
+        <div style="font-size:0.72rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:4px">${label}</div>
+        <div style="font-weight:600">${val}</div></div>`;
+    }
+
+    function approveLeave(id) {
+      leaves.find(x => x.id === id).status = 'approved';
+      renderLeaves();
+      showToast('Leave approved! ✓');
+    }
+
+    function rejectLeave(id) {
+      leaves.find(x => x.id === id).status = 'rejected';
+      renderLeaves();
+      showToast('Leave rejected.', 'error');
+    }
+
+    function approveFromView() {
+      approveLeave(viewingLeaveId);
+      closeModal('viewLeaveModal');
+    }
+
+    function rejectFromView() {
+      rejectLeave(viewingLeaveId);
+      closeModal('viewLeaveModal');
+    }
+
+    function submitLeave() {
+      const emp = document.getElementById('lEmp').value;
+      const type = document.getElementById('lType').value;
+      const from = document.getElementById('lFrom').value;
+      const to = document.getElementById('lTo').value;
+      const reason = document.getElementById('lReason').value.trim();
+      if (!from || !to) { showToast('Date select karo!', 'error'); return; }
+      const initials = emp.split(' ').map(w=>w[0]).join('').toUpperCase();
+      const colors = ['#4f46e5','#10b981','#f59e0b','#ef4444','#8b5cf6','#06b6d4'];
+      const days = Math.ceil((new Date(to)-new Date(from))/(1000*60*60*24)) + 1;
+      leaves.push({
+        id: leaves.length+1, emp, initials, color: colors[leaves.length % colors.length],
+        type, from, to, days, reason: reason || 'Not specified', status:'pending'
+      });
+      renderLeaves();
+      closeModal('leaveModal');
+      showToast('Leave request submitted! ✓');
+    }
+
+    renderLeaves();
+  </script>
 </body>
 </html>
